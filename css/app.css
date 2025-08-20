@@ -1,0 +1,321 @@
+/* Additional styles for SRMS */
+
+/* Landing page styles */
+.landing-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.landing-header {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.landing-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.landing-header p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.landing-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.landing-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3rem 1rem;
+    background-color: #f9fafb;
+}
+
+.feature-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin: 1rem;
+    width: 300px;
+    text-align: center;
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.landing-footer {
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+}
+
+/* About page styles */
+.about-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-section {
+    margin-bottom: 2rem;
+}
+
+.about-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--light-color);
+    padding-bottom: 0.5rem;
+}
+
+.role-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.role-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 200px;
+}
+
+.role-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.about-footer {
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+}
+
+/* Dashboard stats */
+.dashboard-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* School info card */
+.school-info {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+}
+
+.school-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Student info card */
+.student-info {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+}
+
+.student-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.student-details p {
+    margin-bottom: 0.25rem;
+}
+
+/* Quick actions */
+.quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Alerts */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    position: relative;
+}
+
+.alert .close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.alert-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.alert-info {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+}
+
+/* Upload instructions */
+.upload-instructions {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--light-color);
+    border-radius: 4px;
+}
+
+.upload-instructions h4 {
+    margin-bottom: 0.5rem;
+}
+
+.template-download {
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Results tabs */
+.results-tabs {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Student info header in results modal */
+.student-info-header {
+    margin-bottom: 1.5rem;
+}
+
+.student-info-header h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive layout */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+}
+
+.col-md-6 {
+    flex: 0 0 calc(50% - 1.5rem);
+    max-width: calc(50% - 1.5rem);
+    margin: 0 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .landing-buttons {
+        flex-direction: column;
+    }
+    
+    .role-cards {
+        flex-direction: column;
+    }
+}
+
+/* Utility classes */
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 3rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }

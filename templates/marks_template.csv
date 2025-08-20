@@ -1,0 +1,3 @@
+student_id,class_id,subject_id,exam_term,marks_obtained,total_subject_marks
+1,1,1,term1,85,100
+2,1,1,term1,90,100

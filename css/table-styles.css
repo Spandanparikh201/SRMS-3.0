@@ -1,0 +1,66 @@
+/* Enhanced table styles */
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+}
+
+.table th,
+.table td {
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #495057;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(243, 244, 246, 0.5);
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Role-specific table styles */
+.admin-theme .table th {
+    border-bottom: 2px solid #e53935;
+}
+
+.principal-theme .table th {
+    border-bottom: 2px solid #2e7d32;
+}
+
+.teacher-theme .table th {
+    border-bottom: 2px solid #0288d1;
+}
+
+.student-theme .table th {
+    border-bottom: 2px solid #1a237e;
+}
+
+/* Table actions column */
+.table td:last-child {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.table .btn {
+    margin: 0 1px;
+    min-width: 30px;
+    max-width: 50px;
+}
