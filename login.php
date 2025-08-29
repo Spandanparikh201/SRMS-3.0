@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: sdashboard.php");
                     break;
                 default:
-                    header("Location: index1.php");
+                    header("Location: index.php");
                     break;
             }
             exit();
@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
         
         <div class="back-link">
-            <a href="index1.php">← Back to Home</a>
+            <a href="index.php">← Back to Home</a>
         </div>
     </div>
 </body>
