@@ -1,0 +1,13 @@
+kind: wasmer.io/App@v0
+name: srms-app
+package: .
+
+env:
+  - name: DB_HOST
+    value: "localhost"
+  - name: DB_USER  
+    value: "root"
+  - name: DB_PASS
+    value: ""
+  - name: DB_NAME
+    value: "srms_db"
