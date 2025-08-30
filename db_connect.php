@@ -1,8 +1,8 @@
 <?php
-$servername = $_ENV['MYSQL_HOST'] ?? "localhost";
-$username = $_ENV['MYSQL_USER'] ?? "root";
-$password = $_ENV['MYSQL_PASSWORD'] ?? "";
-$dbname = $_ENV['MYSQL_DATABASE'] ?? "srms_db";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "srms_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
