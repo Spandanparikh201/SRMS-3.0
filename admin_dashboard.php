@@ -23,7 +23,7 @@ if ($userStatus['status'] === 'inactive') {
 
 // Get schools with principals
 $schoolsQuery = "SELECT s.*, u.user_id as principal_user_id, u.fullname as principal_name 
-                 FROM School s 
+                 FROM school s 
                  LEFT JOIN User u ON s.school_id = u.school_id AND u.role = 'principal' 
                  ORDER BY s.school_name";
 $schoolsResult = $conn->query($schoolsQuery);
