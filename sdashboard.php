@@ -2,10 +2,15 @@
 session_start();
 require_once 'db_connect.php';
 
+// Generate CSRF token if not exists
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Check if user is logged in as student
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
     header("Location: login.php");
-    exit();
+    throw new Exception('Unauthorized access');
 }
 
 $user_id = $_SESSION['user_id'];
@@ -58,6 +63,7 @@ $username = $_SESSION['fullname'];
         <ul class="nav-links">
             <li><a href="sdashboard.php">Dashboard</a></li>
             <li><a href="student_results.php">My Results</a></li>
+            <li><a href="change_password_simple.php">Change Password</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
@@ -94,6 +100,7 @@ $username = $_SESSION['fullname'];
         <div class="card">
             <h2>Download Report</h2>
             <form id="reportForm">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="form-group">
                     <label>Select Exam</label>
                     <select id="exam_id" name="exam_id" class="form-control" required>
@@ -129,7 +136,21 @@ $username = $_SESSION['fullname'];
                 alert('Please select an exam first');
                 return;
             }
+            
+            // Show loading state
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
             const url = `student_report.php?format=${format}&exam_id=${examId}`;
+            
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }, 2000);
+            
             if (format === 'pdf') {
                 window.open(url, '_blank');
             } else {

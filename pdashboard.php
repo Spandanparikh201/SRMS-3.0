@@ -61,7 +61,6 @@ $username = $_SESSION['fullname'];
             <li><a href="manage_classes.php">Classes</a></li>
             <li><a href="manage_subjects.php">Subjects</a></li>
             <li><a href="manage_exams.php">Exams</a></li>
-            <li><a href="student_pass_fail_report.php">Pass/Fail Report</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
@@ -95,6 +94,10 @@ $username = $_SESSION['fullname'];
             <button onclick="showAssignmentModal()" class="btn">Assign Teacher to Class & Subject</button>
             <button onclick="exportResults('csv')" class="btn btn-secondary">Export Results (CSV)</button>
             <button onclick="exportStudents('csv')" class="btn btn-secondary">Export Students (CSV)</button>
+            <button onclick="window.location.href='student_pass_fail_report.php'" class="btn">Pass/Fail Report</button>
+            <button onclick="window.location.href='manage_passwords.php'" class="btn">🔐 Manage Passwords</button>
+            <button onclick="window.location.href='bulk_operations.php'" class="btn">📋 Bulk Operations</button>
+            <button onclick="window.location.href='change_password.php'" class="btn btn-secondary">🔑 Change Password</button>
         </div>
 
         <div class="card">

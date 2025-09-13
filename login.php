@@ -1,10 +1,17 @@
 <?php
-session_start();
 require_once 'db_connect.php';
+require_once 'includes/csrf.php';
+require_once 'includes/validation.php';
+require_once 'includes/audit.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    // Validate CSRF token
+    if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
+        $error = "Security validation failed";
+        logActivity('LOGIN_CSRF_FAIL', null, null, 'Invalid CSRF token');
+    } else {
+        $username = sanitizeInput($_POST['username']);
+        $password = $_POST['password'];
     
     $stmt = $conn->prepare("SELECT user_id, username, password, fullname, role, school_id, status FROM user WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -23,6 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['fullname'] = $row['fullname'];
             $_SESSION['role'] = $row['role'];
             $_SESSION['school_id'] = $row['school_id'];
+            
+            // Log successful login
+            logActivity('LOGIN_SUCCESS', 'user', $row['user_id'], 'User logged in successfully');
             
             switch ($row['role']) {
                 case 'admin':
@@ -44,9 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             $error = "Invalid password";
+            logActivity('LOGIN_FAIL', null, null, 'Invalid password for username: ' . $username);
         }
     } else {
         $error = "Invalid username";
+        logActivity('LOGIN_FAIL', null, null, 'Invalid username: ' . $username);
+    }
     }
 }
 ?>
@@ -81,6 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
         
         <form method="post">
+            <?php echo getCSRFField(); ?>
             <div class="form-group">
                 <input type="text" name="username" class="form-control" placeholder="Username" required>
             </div>

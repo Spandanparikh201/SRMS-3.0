@@ -62,6 +62,7 @@ $username = $_SESSION['fullname'];
             <li><a href="upload_marks.php">Upload Marks</a></li>
             <li><a href="teacher_performance.php">Class Performance</a></li>
             <li><a href="student_pass_fail_report.php">Pass/Fail Report</a></li>
+            <li><a href="change_password.php">Change Password</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>

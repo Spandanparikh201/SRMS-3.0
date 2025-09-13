@@ -63,6 +63,9 @@ $username = $_SESSION['fullname'];
         <ul class="nav-links">
             <li><a href="admin_dashboard.php">Dashboard</a></li>
             <li><a href="manage_school.php">Manage Schools</a></li>
+            <li><a href="manage_passwords.php">Manage Passwords</a></li>
+            <li><a href="system_dashboard.php">System Status</a></li>
+            <li><a href="bulk_operations.php">Bulk Operations</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
@@ -89,15 +92,12 @@ $username = $_SESSION['fullname'];
         </div>
 
         <div class="action-buttons">
-            <a href="add_school.php" class="btn btn-secondary">Add Schools</a>
-            <a href="data_integrity_check.php" class="btn btn-info">🔍 Data Integrity Check</a>
-            <a href="enhanced_backup_system.php" class="btn btn-warning">💾 Enhanced Backup System</a>
-            <a href="auto_backup_scheduler.php" class="btn btn-success">⏰ Auto Backup Scheduler</a>
-            <a href="emergency_restore.php" class="btn btn-danger">🚨 Emergency Restore</a>
-            <a href="backup_settings.php" class="btn">⚙️ Backup Settings</a>
-            <a href="student_pass_fail_report.php" class="btn">📊 Pass/Fail Report</a>
-            <a href="setup_complete_school_data.php" class="btn btn-success">🏠 Setup School Data</a>
-            <a href="functionality_test.php" class="btn btn-info">🧪 Functionality Test</a>
+            <a href="system_dashboard.php" class="btn">📊 System Status</a>
+            <a href="bulk_operations.php" class="btn">📋 Bulk Operations</a>
+            <a href="optimize_database.php" class="btn btn-secondary">🔧 Optimize Database</a>
+            <a href="manage_school.php" class="btn btn-secondary">🏫 Add Schools</a>
+            <a href="enhanced_backup_system.php" class="btn btn-warning">💾 Backup System</a>
+            <a href="student_pass_fail_report.php" class="btn">📈 Reports</a>
         </div>
 
         <div class="card">
