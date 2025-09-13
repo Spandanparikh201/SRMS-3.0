@@ -23,9 +23,9 @@ $role = $_SESSION['role'];
 // Get student information
 $studentQuery = "
     SELECT s.student_id, s.roll_number, u.fullname, c.class_name, c.division, s.school_id
-    FROM Student s
-    JOIN User u ON s.user_id = u.user_id
-    JOIN Class c ON s.class_id = c.class_id
+    FROM student s
+    JOIN user u ON s.user_id = u.user_id
+    JOIN class c ON s.class_id = c.class_id
     WHERE s.student_id = ?
 ";
 $stmt = $conn->prepare($studentQuery);
@@ -52,8 +52,8 @@ if ($role !== 'admin' && $studentInfo['school_id'] != $school_id) {
 $term1Query = "
     SELECT r.result_id, s.subject_name, r.marks_obtained, r.total_subject_marks,
            (r.marks_obtained / r.total_subject_marks * 100) as percentage
-    FROM Result r
-    JOIN Subject s ON r.subject_id = s.subject_id
+    FROM result r
+    JOIN subject s ON r.subject_id = s.subject_id
     WHERE r.student_id = ? AND r.exam_term = 'term1'
     ORDER BY s.subject_name
 ";
@@ -71,8 +71,8 @@ while ($row = $term1Result->fetch_assoc()) {
 $term2Query = "
     SELECT r.result_id, s.subject_name, r.marks_obtained, r.total_subject_marks,
            (r.marks_obtained / r.total_subject_marks * 100) as percentage
-    FROM Result r
-    JOIN Subject s ON r.subject_id = s.subject_id
+    FROM result r
+    JOIN subject s ON r.subject_id = s.subject_id
     WHERE r.student_id = ? AND r.exam_term = 'term2'
     ORDER BY s.subject_name
 ";

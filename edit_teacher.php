@@ -15,8 +15,8 @@ if (!$username) {
 
 // Get teacher data
 $query = "SELECT t.teacher_id, u.fullname, u.username 
-          FROM Teacher t 
-          JOIN User u ON t.user_id = u.user_id 
+          FROM teacher t 
+          JOIN user u ON t.user_id = u.user_id 
           WHERE u.username = ? AND t.school_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("si", $username, $_SESSION['school_id']);
@@ -45,7 +45,7 @@ if (!$teacher) {
             </div>
             <input type="hidden" name="teacher_id" value="<?= $teacher['teacher_id'] ?>">
             <input type="hidden" name="username" value="<?= htmlspecialchars($username) ?>">
-            <button type="submit" class="btn">Update Teacher</button>
+            <button type="submit" class="btn">Update teacher</button>
         </form>
     </div>
     <script>

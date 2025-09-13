@@ -3,7 +3,7 @@ require_once 'db_connect.php';
 
 // Create Exam table
 $createExamTable = "
-CREATE TABLE IF NOT EXISTS Exam (
+CREATE TABLE IF NOT EXISTS exam (
     exam_id INT AUTO_INCREMENT PRIMARY KEY,
     exam_name VARCHAR(100) NOT NULL,
     exam_type ENUM('term1', 'term2', 'unit_test', 'final') NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Exam (
     school_id INT NOT NULL,
     status ENUM('upcoming', 'ongoing', 'completed') DEFAULT 'upcoming',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (school_id) REFERENCES School(school_id),
+    FOREIGN KEY (school_id) REFERENCES school(school_id),
     UNIQUE KEY unique_exam (exam_name, school_id)
 )";
 

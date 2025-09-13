@@ -15,9 +15,9 @@ if (!$username) {
 
 // Get student data
 $query = "SELECT s.*, u.fullname, u.username, c.class_name, c.division 
-          FROM Student s 
-          JOIN User u ON s.user_id = u.user_id 
-          JOIN Class c ON s.class_id = c.class_id 
+          FROM student s 
+          JOIN user u ON s.user_id = u.user_id 
+          JOIN class c ON s.class_id = c.class_id 
           WHERE u.username = ? AND s.school_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("si", $username, $_SESSION['school_id']);
@@ -52,7 +52,7 @@ if (!$student) {
                 <label>Class</label>
                 <select name="class_id" class="form-control" required>
                     <?php
-                    $classQuery = "SELECT class_id, class_name, division FROM Class WHERE school_id = ?";
+                    $classQuery = "SELECT class_id, class_name, division FROM class WHERE school_id = ?";
                     $stmt = $conn->prepare($classQuery);
                     $stmt->bind_param("i", $_SESSION['school_id']);
                     $stmt->execute();
@@ -65,7 +65,7 @@ if (!$student) {
                 </select>
             </div>
             <input type="hidden" name="username" value="<?= htmlspecialchars($username) ?>">
-            <button type="submit" class="btn">Update Student</button>
+            <button type="submit" class="btn">Update student</button>
         </form>
     </div>
     <script>

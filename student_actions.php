@@ -32,7 +32,7 @@ function generateUsername($fullname, $school_name, $conn) {
     
     // Check if username exists and add number if needed
     while (true) {
-        $checkQuery = "SELECT user_id FROM User WHERE username = ?";
+        $checkQuery = "SELECT user_id FROM user WHERE username = ?";
         $stmt = $conn->prepare($checkQuery);
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -69,7 +69,7 @@ switch ($action) {
         }
         
         // Validate class belongs to the same school
-        $classQuery = "SELECT school_id FROM Class WHERE class_id = ?";
+        $classQuery = "SELECT school_id FROM class WHERE class_id = ?";
         $stmt = $conn->prepare($classQuery);
         $stmt->bind_param("i", $class_id);
         $stmt->execute();
@@ -87,7 +87,7 @@ switch ($action) {
         }
         
         // Check for duplicate roll number in the same class
-        $duplicateQuery = "SELECT student_id FROM Student WHERE roll_number = ? AND class_id = ? AND school_id = ?";
+        $duplicateQuery = "SELECT student_id FROM student WHERE roll_number = ? AND class_id = ? AND school_id = ?";
         $stmt = $conn->prepare($duplicateQuery);
         $stmt->bind_param("sii", $roll_number, $class_id, $school_id);
         $stmt->execute();
@@ -98,7 +98,7 @@ switch ($action) {
         }
         
         // Get school name for username generation
-        $schoolQuery = "SELECT school_name FROM School WHERE school_id = ?";
+        $schoolQuery = "SELECT school_name FROM school WHERE school_id = ?";
         $stmt = $conn->prepare($schoolQuery);
         $stmt->bind_param("i", $school_id);
         $stmt->execute();
@@ -118,7 +118,7 @@ switch ($action) {
         
         try {
             // Insert user
-            $userQuery = "INSERT INTO User (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'student', ?)";
+            $userQuery = "INSERT INTO user (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'student', ?)";
             $stmt = $conn->prepare($userQuery);
             $stmt->bind_param("sssi", $username, $password, $fullname, $school_id);
             
@@ -129,7 +129,7 @@ switch ($action) {
             $user_id = $conn->insert_id;
             
             // Insert student
-            $studentQuery = "INSERT INTO Student (roll_number, user_id, class_id, school_id) VALUES (?, ?, ?, ?)";
+            $studentQuery = "INSERT INTO student (roll_number, user_id, class_id, school_id) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($studentQuery);
             $stmt->bind_param("siii", $roll_number, $user_id, $class_id, $school_id);
             
@@ -162,7 +162,7 @@ switch ($action) {
         }
         
         // Get school name for username generation
-        $schoolQuery = "SELECT school_name FROM School WHERE school_id = ?";
+        $schoolQuery = "SELECT school_name FROM school WHERE school_id = ?";
         $stmt = $conn->prepare($schoolQuery);
         $stmt->bind_param("i", $school_id);
         $stmt->execute();
@@ -186,7 +186,7 @@ switch ($action) {
                 $password = $data[4] ?? 'student' . rand(1000, 9999);
                 
                 // Get class_id
-                $classQuery = "SELECT class_id FROM Class WHERE class_name = ? AND division = ? AND school_id = ?";
+                $classQuery = "SELECT class_id FROM class WHERE class_name = ? AND division = ? AND school_id = ?";
                 $stmt = $conn->prepare($classQuery);
                 $stmt->bind_param("ssi", $class_name, $division, $school_id);
                 $stmt->execute();
@@ -204,7 +204,7 @@ switch ($action) {
                 $username = generateUsername($fullname, $school_name, $conn);
                 
                 // Insert user
-                $userQuery = "INSERT INTO User (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'student', ?)";
+                $userQuery = "INSERT INTO user (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'student', ?)";
                 $stmt = $conn->prepare($userQuery);
                 $stmt->bind_param("sssi", $username, $password, $fullname, $school_id);
                 
@@ -212,7 +212,7 @@ switch ($action) {
                     $user_id = $conn->insert_id;
                     
                     // Insert student
-                    $studentQuery = "INSERT INTO Student (roll_number, user_id, class_id, school_id) VALUES (?, ?, ?, ?)";
+                    $studentQuery = "INSERT INTO student (roll_number, user_id, class_id, school_id) VALUES (?, ?, ?, ?)";
                     $stmt = $conn->prepare($studentQuery);
                     $stmt->bind_param("siii", $roll_number, $user_id, $class_id, $school_id);
                     
@@ -264,13 +264,13 @@ switch ($action) {
         }
         
         // Update user
-        $userQuery = "UPDATE User SET fullname = ? WHERE username = ? AND school_id = ?";
+        $userQuery = "UPDATE user SET fullname = ? WHERE username = ? AND school_id = ?";
         $stmt = $conn->prepare($userQuery);
         $stmt->bind_param("ssi", $fullname, $username, $school_id);
         
         if ($stmt->execute()) {
             // Get user_id
-            $getUserQuery = "SELECT user_id FROM User WHERE username = ? AND school_id = ?";
+            $getUserQuery = "SELECT user_id FROM user WHERE username = ? AND school_id = ?";
             $stmt = $conn->prepare($getUserQuery);
             $stmt->bind_param("si", $username, $school_id);
             $stmt->execute();
@@ -279,7 +279,7 @@ switch ($action) {
             
             if ($user) {
                 // Update student
-                $studentQuery = "UPDATE Student SET roll_number = ?, class_id = ? WHERE user_id = ? AND school_id = ?";
+                $studentQuery = "UPDATE student SET roll_number = ?, class_id = ? WHERE user_id = ? AND school_id = ?";
                 $stmt = $conn->prepare($studentQuery);
                 $stmt->bind_param("siii", $roll_number, $class_id, $user['user_id'], $school_id);
                 

@@ -32,7 +32,7 @@ switch($action) {
             $principal_password = 'principal' . rand(1000, 9999);
             
             // Check if username already exists
-            $checkUser = $conn->prepare("SELECT user_id FROM User WHERE username = ?");
+            $checkUser = $conn->prepare("SELECT user_id FROM user WHERE username = ?");
             $checkUser->bind_param("s", $principal_username);
             $checkUser->execute();
             if ($checkUser->get_result()->num_rows > 0) {
@@ -43,7 +43,7 @@ switch($action) {
         $conn->begin_transaction();
         
         try {
-            $stmt = $conn->prepare("INSERT INTO School (school_name, school_address, principal_name, principal_username, status) VALUES (?, ?, ?, ?, 'active')");
+            $stmt = $conn->prepare("INSERT INTO school (school_name, school_address, principal_name, principal_username, status) VALUES (?, ?, ?, ?, 'active')");
             $stmt->bind_param("ssss", $school_name, $school_address, $principal_name, $principal_username);
             
             if (!$stmt->execute()) {
@@ -53,7 +53,7 @@ switch($action) {
             $school_id = $conn->insert_id;
             
             if (!empty($principal_name)) {
-                $userStmt = $conn->prepare("INSERT INTO User (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'principal', ?)");
+                $userStmt = $conn->prepare("INSERT INTO user (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'principal', ?)");
                 $userStmt->bind_param("sssi", $principal_username, $principal_password, $principal_name, $school_id);
                 
                 if (!$userStmt->execute()) {
@@ -89,7 +89,7 @@ switch($action) {
             exit;
         }
         
-        $stmt = $conn->prepare("UPDATE School SET school_name = ?, school_address = ? WHERE school_id = ?");
+        $stmt = $conn->prepare("UPDATE school SET school_name = ?, school_address = ? WHERE school_id = ?");
         $stmt->bind_param("ssi", $school_name, $school_address, $id);
         
         if ($stmt->execute()) {

@@ -20,7 +20,7 @@ switch ($action) {
             exit();
         }
         
-        $insertQuery = "INSERT INTO Subject (subject_name, school_id) VALUES (?, ?)";
+        $insertQuery = "INSERT INTO subject (subject_name, school_id) VALUES (?, ?)";
         $stmt = $conn->prepare($insertQuery);
         $stmt->bind_param("si", $subject_name, $school_id);
         
@@ -40,7 +40,7 @@ switch ($action) {
             exit();
         }
         
-        $updateQuery = "UPDATE Subject SET subject_name = ? WHERE subject_id = ? AND school_id = ?";
+        $updateQuery = "UPDATE subject SET subject_name = ? WHERE subject_id = ? AND school_id = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param("sii", $subject_name, $subject_id, $school_id);
         

@@ -13,7 +13,7 @@ $teacher_id = $_SESSION['teacher_id'] ?? null;
 
 // Get teacher_id if not in session
 if (!$teacher_id) {
-    $teacherQuery = "SELECT teacher_id FROM Teacher WHERE user_id = ?";
+    $teacherQuery = "SELECT teacher_id FROM teacher WHERE user_id = ?";
     $stmt = $conn->prepare($teacherQuery);
     $stmt->bind_param("i", $_SESSION['user_id']);
     $stmt->execute();
@@ -41,11 +41,11 @@ switch ($action) {
         
         // Check if result already exists
         if ($exam_id) {
-            $checkQuery = "SELECT result_id FROM Result WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_id = ?";
+            $checkQuery = "SELECT result_id FROM result WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_id = ?";
             $stmt = $conn->prepare($checkQuery);
             $stmt->bind_param("iiii", $student_id, $class_id, $subject_id, $exam_id);
         } else {
-            $checkQuery = "SELECT result_id FROM Result WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_term = ?";
+            $checkQuery = "SELECT result_id FROM result WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_term = ?";
             $stmt = $conn->prepare($checkQuery);
             $stmt->bind_param("iiis", $student_id, $class_id, $subject_id, $exam_term);
         }
@@ -55,22 +55,22 @@ switch ($action) {
         if ($result->num_rows > 0) {
             // Update existing result
             if ($exam_id) {
-                $updateQuery = "UPDATE Result SET marks_obtained = ?, total_subject_marks = ?, recorded_by_teacher_id = ?, recorded_at = NOW() WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_id = ?";
+                $updateQuery = "UPDATE result SET marks_obtained = ?, total_subject_marks = ?, recorded_by_teacher_id = ?, recorded_at = NOW() WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_id = ?";
                 $stmt = $conn->prepare($updateQuery);
                 $stmt->bind_param("ddiiiii", $marks_obtained, $total_marks, $teacher_id, $student_id, $class_id, $subject_id, $exam_id);
             } else {
-                $updateQuery = "UPDATE Result SET marks_obtained = ?, total_subject_marks = ?, recorded_by_teacher_id = ?, recorded_at = NOW() WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_term = ?";
+                $updateQuery = "UPDATE result SET marks_obtained = ?, total_subject_marks = ?, recorded_by_teacher_id = ?, recorded_at = NOW() WHERE student_id = ? AND class_id = ? AND subject_id = ? AND exam_term = ?";
                 $stmt = $conn->prepare($updateQuery);
                 $stmt->bind_param("ddiiiiis", $marks_obtained, $total_marks, $teacher_id, $student_id, $class_id, $subject_id, $exam_term);
             }
         } else {
             // Insert new result
             if ($exam_id) {
-                $insertQuery = "INSERT INTO Result (student_id, class_id, subject_id, exam_id, exam_term, marks_obtained, total_subject_marks, recorded_by_teacher_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $insertQuery = "INSERT INTO result (student_id, class_id, subject_id, exam_id, exam_term, marks_obtained, total_subject_marks, recorded_by_teacher_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($insertQuery);
                 $stmt->bind_param("iiiisddi", $student_id, $class_id, $subject_id, $exam_id, $exam_term, $marks_obtained, $total_marks, $teacher_id);
             } else {
-                $insertQuery = "INSERT INTO Result (student_id, class_id, subject_id, exam_term, marks_obtained, total_subject_marks, recorded_by_teacher_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $insertQuery = "INSERT INTO result (student_id, class_id, subject_id, exam_term, marks_obtained, total_subject_marks, recorded_by_teacher_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($insertQuery);
                 $stmt->bind_param("iiisddi", $student_id, $class_id, $subject_id, $exam_term, $marks_obtained, $total_marks, $teacher_id);
             }
@@ -114,7 +114,7 @@ switch ($action) {
                 $total_marks = $data[5];
                 
                 // Insert or update result
-                $insertQuery = "INSERT INTO Result (student_id, class_id, subject_id, exam_term, marks_obtained, total_subject_marks, recorded_by_teacher_id) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE marks_obtained = VALUES(marks_obtained), total_subject_marks = VALUES(total_subject_marks), recorded_by_teacher_id = VALUES(recorded_by_teacher_id), recorded_at = NOW()";
+                $insertQuery = "INSERT INTO result (student_id, class_id, subject_id, exam_term, marks_obtained, total_subject_marks, recorded_by_teacher_id) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE marks_obtained = VALUES(marks_obtained), total_subject_marks = VALUES(total_subject_marks), recorded_by_teacher_id = VALUES(recorded_by_teacher_id), recorded_at = NOW()";
                 $stmt = $conn->prepare($insertQuery);
                 $stmt->bind_param("iiisddi", $student_id, $class_id, $subject_id, $exam_term, $marks_obtained, $total_marks, $teacher_id);
                 

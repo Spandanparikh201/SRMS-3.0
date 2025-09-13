@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject_code = $_POST['subject_code'];
     
     // Check if subject belongs to this school
-    $checkQuery = "SELECT * FROM Subject WHERE subject_id = ? AND school_id = ?";
+    $checkQuery = "SELECT * FROM subject WHERE subject_id = ? AND school_id = ?";
     $stmt = $conn->prepare($checkQuery);
     $stmt->bind_param("ii", $subject_id, $school_id);
     $stmt->execute();
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response['message'] = "You don't have permission to update this subject!";
     } else {
         // Update subject
-        $stmt = $conn->prepare("UPDATE Subject SET subject_name = ?, subject_code = ? WHERE subject_id = ? AND school_id = ?");
+        $stmt = $conn->prepare("UPDATE subject SET subject_name = ?, subject_code = ? WHERE subject_id = ? AND school_id = ?");
         $stmt->bind_param("ssii", $subject_name, $subject_code, $subject_id, $school_id);
         
         if ($stmt->execute()) {

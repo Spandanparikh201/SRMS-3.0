@@ -82,8 +82,8 @@ $username = $_SESSION['fullname'];
                     <tbody>
                         <?php
                         $teachersQuery = "SELECT t.teacher_id, u.fullname, u.username 
-                                         FROM Teacher t 
-                                         JOIN User u ON t.user_id = u.user_id 
+                                         FROM teacher t 
+                                         JOIN user u ON t.user_id = u.user_id 
                                          WHERE t.school_id = ? 
                                          ORDER BY u.fullname";
                         $stmt = $conn->prepare($teachersQuery);
@@ -121,11 +121,11 @@ $username = $_SESSION['fullname'];
             <tbody>
                 <?php
                 $assignmentsQuery = "SELECT tcs.teacher_class_subject_id, u.fullname, c.class_name, c.division, s.subject_name
-                                    FROM Teacher_Class_Subject tcs
-                                    JOIN Teacher t ON tcs.teacher_id = t.teacher_id
-                                    JOIN User u ON t.user_id = u.user_id
-                                    JOIN Class c ON tcs.class_id = c.class_id
-                                    JOIN Subject s ON tcs.subject_id = s.subject_id
+                                    FROM teacher_class_subject tcs
+                                    JOIN teacher t ON tcs.teacher_id = t.teacher_id
+                                    JOIN user u ON t.user_id = u.user_id
+                                    JOIN class c ON tcs.class_id = c.class_id
+                                    JOIN subject s ON tcs.subject_id = s.subject_id
                                     WHERE t.school_id = ?
                                     ORDER BY u.fullname";
                 $stmt = $conn->prepare($assignmentsQuery);
@@ -162,7 +162,7 @@ $username = $_SESSION['fullname'];
                     <label>Full Name</label>
                     <input type="text" id="editFullname" name="fullname" class="form-control" required>
                 </div>
-                <button type="submit" class="btn">Update Teacher</button>
+                <button type="submit" class="btn">Update teacher</button>
             </form>
         </div>
     </div>
@@ -183,7 +183,7 @@ $username = $_SESSION['fullname'];
                     <select name="class_id" class="form-control" required>
                         <option value="">Select Class</option>
                         <?php
-                        $classQuery = "SELECT class_id, class_name, division FROM Class WHERE school_id = ?";
+                        $classQuery = "SELECT class_id, class_name, division FROM class WHERE school_id = ?";
                         $stmt = $conn->prepare($classQuery);
                         $stmt->bind_param("i", $_SESSION['school_id']);
                         $stmt->execute();
@@ -199,7 +199,7 @@ $username = $_SESSION['fullname'];
                     <select name="subject_id" class="form-control" required>
                         <option value="">Select Subject</option>
                         <?php
-                        $subjectQuery = "SELECT subject_id, subject_name FROM Subject WHERE school_id = ?";
+                        $subjectQuery = "SELECT subject_id, subject_name FROM subject WHERE school_id = ?";
                         $stmt = $conn->prepare($subjectQuery);
                         $stmt->bind_param("i", $_SESSION['school_id']);
                         $stmt->execute();

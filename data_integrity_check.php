@@ -11,9 +11,9 @@ $issues = [];
 $fixes = [];
 
 // Check 1: Orphaned records
-$orphanedUsers = $conn->query("SELECT COUNT(*) as count FROM User u 
-                               LEFT JOIN Teacher t ON u.user_id = t.user_id 
-                               LEFT JOIN Student s ON u.user_id = s.user_id 
+$orphanedUsers = $conn->query("SELECT COUNT(*) as count FROM user u 
+                               LEFT JOIN teacher t ON u.user_id = t.user_id 
+                               LEFT JOIN student s ON u.user_id = s.user_id 
                                WHERE u.role IN ('teacher', 'student') 
                                AND t.user_id IS NULL AND s.user_id IS NULL")->fetch_assoc()['count'];
 
@@ -22,8 +22,8 @@ if ($orphanedUsers > 0) {
 }
 
 // Check 2: Missing school references
-$missingSchools = $conn->query("SELECT COUNT(*) as count FROM User u 
-                                LEFT JOIN School s ON u.school_id = s.school_id 
+$missingSchools = $conn->query("SELECT COUNT(*) as count FROM user u 
+                                LEFT JOIN school s ON u.school_id = s.school_id 
                                 WHERE u.school_id IS NOT NULL AND s.school_id IS NULL")->fetch_assoc()['count'];
 
 if ($missingSchools > 0) {
@@ -31,7 +31,7 @@ if ($missingSchools > 0) {
 }
 
 // Check 3: Duplicate usernames
-$duplicateUsernames = $conn->query("SELECT username, COUNT(*) as count FROM User 
+$duplicateUsernames = $conn->query("SELECT username, COUNT(*) as count FROM user 
                                     GROUP BY username HAVING COUNT(*) > 1")->num_rows;
 
 if ($duplicateUsernames > 0) {
@@ -50,10 +50,10 @@ if ($invalidResults > 0) {
 }
 
 // Check 5: Teacher assignments without proper references
-$invalidAssignments = $conn->query("SELECT COUNT(*) as count FROM Teacher_Class_Subject tcs 
-                                    LEFT JOIN Teacher t ON tcs.teacher_id = t.teacher_id 
-                                    LEFT JOIN Class c ON tcs.class_id = c.class_id 
-                                    LEFT JOIN Subject s ON tcs.subject_id = s.subject_id 
+$invalidAssignments = $conn->query("SELECT COUNT(*) as count FROM teacher_class_subject tcs 
+                                    LEFT JOIN teacher t ON tcs.teacher_id = t.teacher_id 
+                                    LEFT JOIN class c ON tcs.class_id = c.class_id 
+                                    LEFT JOIN subject s ON tcs.subject_id = s.subject_id 
                                     WHERE t.teacher_id IS NULL OR c.class_id IS NULL OR s.subject_id IS NULL")->fetch_assoc()['count'];
 
 if ($invalidAssignments > 0) {
@@ -66,9 +66,9 @@ if (isset($_POST['fix_issues'])) {
     
     try {
         // Fix 1: Remove orphaned user records
-        $conn->query("DELETE u FROM User u 
-                      LEFT JOIN Teacher t ON u.user_id = t.user_id 
-                      LEFT JOIN Student s ON u.user_id = s.user_id 
+        $conn->query("DELETE u FROM user u 
+                      LEFT JOIN teacher t ON u.user_id = t.user_id 
+                      LEFT JOIN student s ON u.user_id = s.user_id 
                       WHERE u.role IN ('teacher', 'student') 
                       AND t.user_id IS NULL AND s.user_id IS NULL");
         $fixes[] = "Removed orphaned user records";
@@ -82,10 +82,10 @@ if (isset($_POST['fix_issues'])) {
         $fixes[] = "Removed invalid result records";
         
         // Fix 3: Remove invalid teacher assignments
-        $conn->query("DELETE tcs FROM Teacher_Class_Subject tcs 
-                      LEFT JOIN Teacher t ON tcs.teacher_id = t.teacher_id 
-                      LEFT JOIN Class c ON tcs.class_id = c.class_id 
-                      LEFT JOIN Subject s ON tcs.subject_id = s.subject_id 
+        $conn->query("DELETE tcs FROM teacher_class_subject tcs 
+                      LEFT JOIN teacher t ON tcs.teacher_id = t.teacher_id 
+                      LEFT JOIN class c ON tcs.class_id = c.class_id 
+                      LEFT JOIN subject s ON tcs.subject_id = s.subject_id 
                       WHERE t.teacher_id IS NULL OR c.class_id IS NULL OR s.subject_id IS NULL");
         $fixes[] = "Removed invalid teacher assignments";
         
@@ -162,14 +162,14 @@ if (isset($_POST['fix_issues'])) {
             <div class="stats-grid">
                 <?php
                 $stats = [
-                    'Schools' => $conn->query("SELECT COUNT(*) as count FROM School")->fetch_assoc()['count'],
-                    'Users' => $conn->query("SELECT COUNT(*) as count FROM User")->fetch_assoc()['count'],
-                    'Teachers' => $conn->query("SELECT COUNT(*) as count FROM Teacher")->fetch_assoc()['count'],
-                    'Students' => $conn->query("SELECT COUNT(*) as count FROM Student")->fetch_assoc()['count'],
-                    'Classes' => $conn->query("SELECT COUNT(*) as count FROM Class")->fetch_assoc()['count'],
-                    'Subjects' => $conn->query("SELECT COUNT(*) as count FROM Subject")->fetch_assoc()['count'],
+                    'Schools' => $conn->query("SELECT COUNT(*) as count FROM school")->fetch_assoc()['count'],
+                    'Users' => $conn->query("SELECT COUNT(*) as count FROM user")->fetch_assoc()['count'],
+                    'Teachers' => $conn->query("SELECT COUNT(*) as count FROM teacher")->fetch_assoc()['count'],
+                    'Students' => $conn->query("SELECT COUNT(*) as count FROM student")->fetch_assoc()['count'],
+                    'Classes' => $conn->query("SELECT COUNT(*) as count FROM class")->fetch_assoc()['count'],
+                    'Subjects' => $conn->query("SELECT COUNT(*) as count FROM subject")->fetch_assoc()['count'],
                     'Results' => $conn->query("SELECT COUNT(*) as count FROM examresult")->fetch_assoc()['count'],
-                    'Assignments' => $conn->query("SELECT COUNT(*) as count FROM Teacher_Class_Subject")->fetch_assoc()['count']
+                    'Assignments' => $conn->query("SELECT COUNT(*) as count FROM teacher_class_subject")->fetch_assoc()['count']
                 ];
                 
                 foreach ($stats as $label => $count):

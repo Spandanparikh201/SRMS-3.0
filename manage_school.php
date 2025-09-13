@@ -131,7 +131,7 @@ $schools = $conn->query("SELECT * FROM school ORDER BY school_name");
                     <label>Principal Username</label>
                     <input type="text" id="editUsername" name="principal_username" class="form-control">
                 </div>
-                <button type="submit" class="btn">Update School</button>
+                <button type="submit" class="btn">Update school</button>
             </form>
         </div>
     </div>

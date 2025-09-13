@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         
         // If principal, check if teacher belongs to their school
         if ($role === 'principal') {
-            $checkQuery = "SELECT t.teacher_id FROM Teacher t WHERE t.user_id = ? AND t.school_id = ?";
+            $checkQuery = "SELECT t.teacher_id FROM teacher t WHERE t.user_id = ? AND t.school_id = ?";
             $stmt = $conn->prepare($checkQuery);
             $stmt->bind_param("ii", $user_id, $school_id);
             $stmt->execute();
@@ -41,10 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         try {
             // Update user information
             if ($password && !empty($password)) {
-                $stmt = $conn->prepare("UPDATE User SET fullname = ?, username = ?, password = ? WHERE user_id = ? AND role = 'teacher'");
+                $stmt = $conn->prepare("UPDATE user SET fullname = ?, username = ?, password = ? WHERE user_id = ? AND role = 'teacher'");
                 $stmt->bind_param("sssi", $fullname, $username, $password, $user_id);
             } else {
-                $stmt = $conn->prepare("UPDATE User SET fullname = ?, username = ? WHERE user_id = ? AND role = 'teacher'");
+                $stmt = $conn->prepare("UPDATE user SET fullname = ?, username = ? WHERE user_id = ? AND role = 'teacher'");
                 $stmt->bind_param("ssi", $fullname, $username, $user_id);
             }
             

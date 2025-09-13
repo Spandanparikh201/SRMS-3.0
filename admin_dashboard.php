@@ -24,7 +24,7 @@ if ($userStatus['status'] === 'inactive') {
 // Get schools with principals
 $schoolsQuery = "SELECT s.*, u.user_id as principal_user_id, u.fullname as principal_name 
                  FROM school s 
-                 LEFT JOIN User u ON s.school_id = u.school_id AND u.role = 'principal' 
+                 LEFT JOIN user u ON s.school_id = u.school_id AND u.role = 'principal' 
                  ORDER BY s.school_name";
 $schoolsResult = $conn->query($schoolsQuery);
 $schools = [];
@@ -33,17 +33,17 @@ while ($row = $schoolsResult->fetch_assoc()) {
 }
 
 // Get students count
-$studentsQuery = "SELECT COUNT(*) as count FROM Student";
+$studentsQuery = "SELECT COUNT(*) as count FROM student";
 $studentsResult = $conn->query($studentsQuery);
 $studentCount = $studentsResult->fetch_assoc()['count'];
 
 // Get teachers count
-$teachersQuery = "SELECT COUNT(*) as count FROM Teacher";
+$teachersQuery = "SELECT COUNT(*) as count FROM teacher";
 $teachersResult = $conn->query($teachersQuery);
 $teacherCount = $teachersResult->fetch_assoc()['count'];
 
 // Get classes count
-$classesQuery = "SELECT COUNT(*) as count FROM Class";
+$classesQuery = "SELECT COUNT(*) as count FROM class";
 $classesResult = $conn->query($classesQuery);
 $classCount = $classesResult->fetch_assoc()['count'];
 
@@ -158,7 +158,7 @@ $username = $_SESSION['fullname'];
                     <label>Principal Username</label>
                     <input type="text" id="editUsername" name="principal_username" class="form-control" readonly>
                 </div>
-                <button type="submit" class="btn">Update School</button>
+                <button type="submit" class="btn">Update school</button>
             </form>
         </div>
     </div>

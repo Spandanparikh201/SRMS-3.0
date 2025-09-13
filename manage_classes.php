@@ -73,8 +73,8 @@ $username = $_SESSION['fullname'];
                     <tbody>
                         <?php
                         $classesQuery = "SELECT c.class_name, c.division, COUNT(s.student_id) as student_count 
-                                        FROM Class c 
-                                        LEFT JOIN Student s ON c.class_id = s.class_id 
+                                        FROM class c 
+                                        LEFT JOIN student s ON c.class_id = s.class_id 
                                         WHERE c.school_id = ? 
                                         GROUP BY c.class_id 
                                         ORDER BY c.class_name, c.division";
@@ -111,7 +111,7 @@ $username = $_SESSION['fullname'];
                     <label>Division</label>
                     <input type="text" id="editDivision" name="division" class="form-control" required>
                 </div>
-                <button type="submit" class="btn">Update Class</button>
+                <button type="submit" class="btn">Update class</button>
             </form>
         </div>
     </div>

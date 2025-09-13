@@ -34,7 +34,7 @@ if ($action === 'bulk_save') {
             $total_marks = $mark['total_marks'];
             
             // Update exam result (entry should already exist)
-            $updateQuery = "UPDATE ExamResult SET marks_obtained = ?, total_marks = ?, updated_at = NOW() WHERE student_id = ? AND subject_id = ? AND exam_id = ?";
+            $updateQuery = "UPDATE examresult SET marks_obtained = ?, total_marks = ?, updated_at = NOW() WHERE student_id = ? AND subject_id = ? AND exam_id = ?";
             $stmt = $conn->prepare($updateQuery);
             $stmt->bind_param("ddiii", $marks_obtained, $total_marks, $student_id, $subject_id, $exam_id);
             

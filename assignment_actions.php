@@ -22,7 +22,7 @@ switch ($action) {
         }
         
         // Validate teacher belongs to the same school
-        $teacherSchoolQuery = "SELECT school_id FROM Teacher WHERE teacher_id = ?";
+        $teacherSchoolQuery = "SELECT school_id FROM teacher WHERE teacher_id = ?";
         $stmt = $conn->prepare($teacherSchoolQuery);
         $stmt->bind_param("i", $teacher_id);
         $stmt->execute();
@@ -40,7 +40,7 @@ switch ($action) {
         }
         
         // Validate class belongs to the same school
-        $classSchoolQuery = "SELECT school_id FROM Class WHERE class_id = ?";
+        $classSchoolQuery = "SELECT school_id FROM class WHERE class_id = ?";
         $stmt = $conn->prepare($classSchoolQuery);
         $stmt->bind_param("i", $class_id);
         $stmt->execute();
@@ -58,7 +58,7 @@ switch ($action) {
         }
         
         // Validate subject belongs to the same school
-        $subjectSchoolQuery = "SELECT school_id FROM Subject WHERE subject_id = ?";
+        $subjectSchoolQuery = "SELECT school_id FROM subject WHERE subject_id = ?";
         $stmt = $conn->prepare($subjectSchoolQuery);
         $stmt->bind_param("i", $subject_id);
         $stmt->execute();
@@ -76,7 +76,7 @@ switch ($action) {
         }
         
         // Check if assignment already exists
-        $checkQuery = "SELECT teacher_class_subject_id FROM Teacher_Class_Subject WHERE teacher_id = ? AND class_id = ? AND subject_id = ?";
+        $checkQuery = "SELECT teacher_class_subject_id FROM teacher_class_subject WHERE teacher_id = ? AND class_id = ? AND subject_id = ?";
         $stmt = $conn->prepare($checkQuery);
         $stmt->bind_param("iii", $teacher_id, $class_id, $subject_id);
         $stmt->execute();
@@ -87,7 +87,7 @@ switch ($action) {
         }
         
         // Create assignment
-        $insertQuery = "INSERT INTO Teacher_Class_Subject (teacher_id, class_id, subject_id) VALUES (?, ?, ?)";
+        $insertQuery = "INSERT INTO teacher_class_subject (teacher_id, class_id, subject_id) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($insertQuery);
         $stmt->bind_param("iii", $teacher_id, $class_id, $subject_id);
         
@@ -110,8 +110,8 @@ switch ($action) {
         
         // Verify assignment belongs to the principal's school
         $verifyQuery = "SELECT tcs.teacher_class_subject_id 
-                        FROM Teacher_Class_Subject tcs
-                        JOIN Teacher t ON tcs.teacher_id = t.teacher_id
+                        FROM teacher_class_subject tcs
+                        JOIN teacher t ON tcs.teacher_id = t.teacher_id
                         WHERE tcs.teacher_class_subject_id = ? AND t.school_id = ?";
         $stmt = $conn->prepare($verifyQuery);
         $stmt->bind_param("ii", $assignment_id, $school_id);
@@ -123,8 +123,8 @@ switch ($action) {
         }
         
         // Check if there are any results associated with this assignment
-        $resultsQuery = "SELECT COUNT(*) as count FROM Result r
-                         JOIN Teacher_Class_Subject tcs ON r.class_id = tcs.class_id AND r.subject_id = tcs.subject_id
+        $resultsQuery = "SELECT COUNT(*) as count FROM result r
+                         JOIN teacher_class_subject tcs ON r.class_id = tcs.class_id AND r.subject_id = tcs.subject_id
                          WHERE tcs.teacher_class_subject_id = ?";
         $stmt = $conn->prepare($resultsQuery);
         $stmt->bind_param("i", $assignment_id);
@@ -136,7 +136,7 @@ switch ($action) {
             exit();
         }
         
-        $deleteQuery = "DELETE FROM Teacher_Class_Subject WHERE teacher_class_subject_id = ?";
+        $deleteQuery = "DELETE FROM teacher_class_subject WHERE teacher_class_subject_id = ?";
         $stmt = $conn->prepare($deleteQuery);
         $stmt->bind_param("i", $assignment_id);
         

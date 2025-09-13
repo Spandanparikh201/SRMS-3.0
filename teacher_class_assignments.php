@@ -43,7 +43,7 @@ $school_id = $_SESSION['school_id'];
                     <select name="teacher_id" class="form-control" required>
                         <option value="">Select Teacher</option>
                         <?php
-                        $teacherQuery = "SELECT t.teacher_id, u.fullname FROM Teacher t JOIN User u ON t.user_id = u.user_id WHERE t.school_id = ?";
+                        $teacherQuery = "SELECT t.teacher_id, u.fullname FROM teacher t JOIN user u ON t.user_id = u.user_id WHERE t.school_id = ?";
                         $stmt = $conn->prepare($teacherQuery);
                         $stmt->bind_param("i", $school_id);
                         $stmt->execute();
@@ -59,7 +59,7 @@ $school_id = $_SESSION['school_id'];
                     <select name="class_id" class="form-control" required>
                         <option value="">Select Class</option>
                         <?php
-                        $classQuery = "SELECT class_id, class_name, division FROM Class WHERE school_id = ?";
+                        $classQuery = "SELECT class_id, class_name, division FROM class WHERE school_id = ?";
                         $stmt = $conn->prepare($classQuery);
                         $stmt->bind_param("i", $school_id);
                         $stmt->execute();
@@ -75,7 +75,7 @@ $school_id = $_SESSION['school_id'];
                     <select name="subject_id" class="form-control" required>
                         <option value="">Select Subject</option>
                         <?php
-                        $subjectQuery = "SELECT subject_id, subject_name FROM Subject WHERE school_id = ?";
+                        $subjectQuery = "SELECT subject_id, subject_name FROM subject WHERE school_id = ?";
                         $stmt = $conn->prepare($subjectQuery);
                         $stmt->bind_param("i", $school_id);
                         $stmt->execute();
@@ -104,11 +104,11 @@ $school_id = $_SESSION['school_id'];
                 <tbody>
                     <?php
                     $assignmentsQuery = "SELECT tcs.teacher_class_subject_id, u.fullname, c.class_name, c.division, s.subject_name
-                                        FROM Teacher_Class_Subject tcs
-                                        JOIN Teacher t ON tcs.teacher_id = t.teacher_id
-                                        JOIN User u ON t.user_id = u.user_id
-                                        JOIN Class c ON tcs.class_id = c.class_id
-                                        JOIN Subject s ON tcs.subject_id = s.subject_id
+                                        FROM teacher_class_subject tcs
+                                        JOIN teacher t ON tcs.teacher_id = t.teacher_id
+                                        JOIN user u ON t.user_id = u.user_id
+                                        JOIN class c ON tcs.class_id = c.class_id
+                                        JOIN subject s ON tcs.subject_id = s.subject_id
                                         WHERE t.school_id = ?";
                     $stmt = $conn->prepare($assignmentsQuery);
                     $stmt->bind_param("i", $school_id);

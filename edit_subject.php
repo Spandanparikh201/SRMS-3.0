@@ -14,7 +14,7 @@ if (!$subject_id) {
 }
 
 // Get subject data
-$query = "SELECT * FROM Subject WHERE subject_id = ? AND school_id = ?";
+$query = "SELECT * FROM subject WHERE subject_id = ? AND school_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("ii", $subject_id, $_SESSION['school_id']);
 $stmt->execute();
@@ -41,7 +41,7 @@ if (!$subject) {
                 <input type="text" name="subject_name" class="form-control" value="<?= htmlspecialchars($subject['subject_name']) ?>" required>
             </div>
             <input type="hidden" name="subject_id" value="<?= $subject['subject_id'] ?>">
-            <button type="submit" class="btn">Update Subject</button>
+            <button type="submit" class="btn">Update subject</button>
         </form>
     </div>
     <script>

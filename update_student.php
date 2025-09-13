@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         
         // If principal, check if student belongs to their school
         if ($role === 'principal') {
-            $checkQuery = "SELECT s.student_id FROM Student s WHERE s.user_id = ? AND s.school_id = ?";
+            $checkQuery = "SELECT s.student_id FROM student s WHERE s.user_id = ? AND s.school_id = ?";
             $stmt = $conn->prepare($checkQuery);
             $stmt->bind_param("ii", $user_id, $school_id);
             $stmt->execute();
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             }
             
             // Also check if the class belongs to their school
-            $checkClassQuery = "SELECT c.class_id FROM Class c WHERE c.class_id = ? AND c.school_id = ?";
+            $checkClassQuery = "SELECT c.class_id FROM class c WHERE c.class_id = ? AND c.school_id = ?";
             $stmt = $conn->prepare($checkClassQuery);
             $stmt->bind_param("ii", $class_id, $school_id);
             $stmt->execute();
@@ -57,17 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         try {
             // Update user information
             if ($password && !empty($password)) {
-                $stmt = $conn->prepare("UPDATE User SET fullname = ?, username = ?, password = ? WHERE user_id = ? AND role = 'student'");
+                $stmt = $conn->prepare("UPDATE user SET fullname = ?, username = ?, password = ? WHERE user_id = ? AND role = 'student'");
                 $stmt->bind_param("sssi", $fullname, $username, $password, $user_id);
             } else {
-                $stmt = $conn->prepare("UPDATE User SET fullname = ?, username = ? WHERE user_id = ? AND role = 'student'");
+                $stmt = $conn->prepare("UPDATE user SET fullname = ?, username = ? WHERE user_id = ? AND role = 'student'");
                 $stmt->bind_param("ssi", $fullname, $username, $user_id);
             }
             
             $stmt->execute();
             
             // Update student information
-            $stmt = $conn->prepare("UPDATE Student SET roll_number = ?, class_id = ? WHERE student_id = ?");
+            $stmt = $conn->prepare("UPDATE student SET roll_number = ?, class_id = ? WHERE student_id = ?");
             $stmt->bind_param("sii", $roll_number, $class_id, $student_id);
             $stmt->execute();
             

@@ -15,7 +15,7 @@ if (!$class_name || !$division) {
 }
 
 // Get class data
-$query = "SELECT * FROM Class WHERE class_name = ? AND division = ? AND school_id = ?";
+$query = "SELECT * FROM class WHERE class_name = ? AND division = ? AND school_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("ssi", $class_name, $division, $_SESSION['school_id']);
 $stmt->execute();
@@ -46,7 +46,7 @@ if (!$class) {
                 <input type="text" name="division" class="form-control" value="<?= htmlspecialchars($class['division']) ?>" required>
             </div>
             <input type="hidden" name="class_id" value="<?= $class['class_id'] ?>">
-            <button type="submit" class="btn">Update Class</button>
+            <button type="submit" class="btn">Update class</button>
         </form>
     </div>
     <script>

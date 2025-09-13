@@ -11,7 +11,7 @@ $school_id = $_SESSION['school_id'];
 $username = $_SESSION['fullname'];
 
 // Get exams for this school
-$examsQuery = "SELECT * FROM Exam WHERE school_id = ? ORDER BY start_date DESC";
+$examsQuery = "SELECT * FROM exam WHERE school_id = ? ORDER BY start_date DESC";
 $stmt = $conn->prepare($examsQuery);
 $stmt->bind_param("i", $school_id);
 $stmt->execute();
@@ -155,7 +155,7 @@ $examsResult = $stmt->get_result();
                 if (data.success) {
                     const exam = data.exam;
                     document.getElementById('modalTitle').textContent = 'Edit Exam';
-                    document.getElementById('submitBtn').textContent = 'Update Exam';
+                    document.getElementById('submitBtn').textContent = 'Update exam';
                     document.getElementById('examId').value = exam.exam_id;
                     document.getElementById('examName').value = exam.exam_name;
                     document.getElementById('examType').value = exam.exam_type;

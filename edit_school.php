@@ -14,7 +14,7 @@ if (empty($school_id)) {
 }
 
 // Get school details
-$schoolQuery = "SELECT * FROM School WHERE school_id = ?";
+$schoolQuery = "SELECT * FROM school WHERE school_id = ?";
 $stmt = $conn->prepare($schoolQuery);
 $stmt->bind_param("i", $school_id);
 $stmt->execute();
@@ -77,7 +77,7 @@ if (!$school) {
                     </select>
                 </div>
                 
-                <button type="submit" class="btn">Update School</button>
+                <button type="submit" class="btn">Update school</button>
             </form>
         </div>
     </div>

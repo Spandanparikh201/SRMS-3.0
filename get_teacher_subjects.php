@@ -17,8 +17,8 @@ if (empty($class_id) || empty($teacher_id)) {
 }
 
 $subjectsQuery = "SELECT DISTINCT s.subject_id, s.subject_name
-                  FROM Teacher_Class_Subject tcs
-                  JOIN Subject s ON tcs.subject_id = s.subject_id
+                  FROM teacher_class_subject tcs
+                  JOIN subject s ON tcs.subject_id = s.subject_id
                   WHERE tcs.teacher_id = ? AND tcs.class_id = ?
                   ORDER BY s.subject_name";
 

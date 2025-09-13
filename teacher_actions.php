@@ -32,7 +32,7 @@ function generateUsername($fullname, $school_name, $conn) {
     
     // Check if username exists and add number if needed
     while (true) {
-        $checkQuery = "SELECT user_id FROM User WHERE username = ?";
+        $checkQuery = "SELECT user_id FROM user WHERE username = ?";
         $stmt = $conn->prepare($checkQuery);
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -62,7 +62,7 @@ switch ($action) {
         }
         
         // Get school name for username generation
-        $schoolQuery = "SELECT school_name FROM School WHERE school_id = ?";
+        $schoolQuery = "SELECT school_name FROM school WHERE school_id = ?";
         $stmt = $conn->prepare($schoolQuery);
         $stmt->bind_param("i", $school_id);
         $stmt->execute();
@@ -79,7 +79,7 @@ switch ($action) {
         $username = generateUsername($fullname, $school_name, $conn);
         
         // Insert user
-        $userQuery = "INSERT INTO User (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'teacher', ?)";
+        $userQuery = "INSERT INTO user (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'teacher', ?)";
         $stmt = $conn->prepare($userQuery);
         $stmt->bind_param("sssi", $username, $password, $fullname, $school_id);
         
@@ -87,7 +87,7 @@ switch ($action) {
             $user_id = $conn->insert_id;
             
             // Insert teacher
-            $teacherQuery = "INSERT INTO Teacher (user_id, school_id) VALUES (?, ?)";
+            $teacherQuery = "INSERT INTO teacher (user_id, school_id) VALUES (?, ?)";
             $stmt = $conn->prepare($teacherQuery);
             $stmt->bind_param("ii", $user_id, $school_id);
             
@@ -112,7 +112,7 @@ switch ($action) {
         }
         
         // Get user_id from teacher_id
-        $getUserQuery = "SELECT user_id FROM Teacher WHERE teacher_id = ?";
+        $getUserQuery = "SELECT user_id FROM teacher WHERE teacher_id = ?";
         $stmt = $conn->prepare($getUserQuery);
         $stmt->bind_param("i", $teacher_id);
         $stmt->execute();
@@ -126,7 +126,7 @@ switch ($action) {
         $user_id = $result->fetch_assoc()['user_id'];
         
         // Update user
-        $updateQuery = "UPDATE User SET fullname = ?, username = ? WHERE user_id = ?";
+        $updateQuery = "UPDATE user SET fullname = ?, username = ? WHERE user_id = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param("ssi", $fullname, $username, $user_id);
         
@@ -146,7 +146,7 @@ switch ($action) {
         }
         
         // Get user_id
-        $getUserQuery = "SELECT user_id FROM Teacher WHERE teacher_id = ?";
+        $getUserQuery = "SELECT user_id FROM teacher WHERE teacher_id = ?";
         $stmt = $conn->prepare($getUserQuery);
         $stmt->bind_param("i", $teacher_id);
         $stmt->execute();
@@ -160,7 +160,7 @@ switch ($action) {
         $user_id = $result->fetch_assoc()['user_id'];
         
         // Check if teacher has any assignments
-        $assignmentsQuery = "SELECT COUNT(*) as count FROM Teacher_Class_Subject WHERE teacher_id = ?";
+        $assignmentsQuery = "SELECT COUNT(*) as count FROM teacher_class_subject WHERE teacher_id = ?";
         $stmt = $conn->prepare($assignmentsQuery);
         $stmt->bind_param("i", $teacher_id);
         $stmt->execute();
@@ -175,7 +175,7 @@ switch ($action) {
         
         try {
             // Delete teacher first
-            $deleteTeacherQuery = "DELETE FROM Teacher WHERE teacher_id = ?";
+            $deleteTeacherQuery = "DELETE FROM teacher WHERE teacher_id = ?";
             $stmt = $conn->prepare($deleteTeacherQuery);
             $stmt->bind_param("i", $teacher_id);
             
@@ -184,7 +184,7 @@ switch ($action) {
             }
             
             // Delete user
-            $deleteUserQuery = "DELETE FROM User WHERE user_id = ?";
+            $deleteUserQuery = "DELETE FROM user WHERE user_id = ?";
             $stmt = $conn->prepare($deleteUserQuery);
             $stmt->bind_param("i", $user_id);
             
