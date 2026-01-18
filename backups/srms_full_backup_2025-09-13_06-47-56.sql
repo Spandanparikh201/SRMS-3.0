@@ -1,6 +1,6 @@
 -- =====================================================
 -- SRMS Database Backup
--- Generated: 2025-08-26 17:52:34
+-- Generated: 2025-09-13 06:47:56
 -- Database: srms_db
 -- =====================================================
 
@@ -71,7 +71,7 @@ CREATE TABLE `user` (
 -- =====================================================
 
 INSERT INTO `user` VALUES
-('1', 'srms.admin', 'admin', 'SRMS Administrator', 'admin', '1', 'active'),
+('1', 'srms.admin', '$2y$10$hSs/.9zXgk9n6lnd90062ekulb.XUXdFUGHQZp/vY8wD5AAKLZmbq', 'SRMS Administrator', 'admin', '1', 'active'),
 ('2', 'priya.principal', 'principalpass123', 'Dr. Priya Sharma', 'principal', '1', 'active'),
 ('3', 'sanjay.principal', 'principalpass123', 'Mr. Sanjay Kumar', 'principal', '2', 'active'),
 ('4', 'thomas.principal', 'principalpass123', 'Fr. Thomas Varghese', 'principal', '3', 'active'),

@@ -10,13 +10,13 @@
 .landing-header {
     background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
     color: white;
-    padding: 5rem 2rem;
+    padding: 6rem 4rem;
     text-align: center;
 }
 
 .landing-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .landing-header p {
@@ -32,20 +32,20 @@
 }
 
 .landing-features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 3rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 4rem 3rem;
     background-color: #f9fafb;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .feature-card {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    margin: 1rem;
-    width: 300px;
+    padding: 2rem;
     text-align: center;
 }
 
@@ -117,19 +117,17 @@
 
 /* Dashboard stats */
 .dashboard-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .stat-card {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    flex: 1;
-    min-width: 150px;
+    padding: 2rem;
     text-align: center;
 }
 
@@ -288,20 +286,7 @@
     margin: 0 0.75rem;
 }
 
-@media (max-width: 768px) {
-    .col-md-6 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-    
-    .landing-buttons {
-        flex-direction: column;
-    }
-    
-    .role-cards {
-        flex-direction: column;
-    }
-}
+
 
 /* Utility classes */
 .mt-1 { margin-top: 0.25rem; }

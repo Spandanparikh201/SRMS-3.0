@@ -33,7 +33,6 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 1rem;
     background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
 }
 
@@ -41,9 +40,8 @@ body {
     background-color: var(--card-bg);
     border-radius: 8px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-    max-width: 400px;
+    padding: 3rem;
+    width: 450px;
 }
 
 .login-card h2 {
@@ -112,10 +110,10 @@ body {
 }
 
 .sidebar {
-    width: 250px;
+    width: 280px;
     background-color: var(--dark-color);
     color: var(--light-color);
-    padding: 1rem;
+    padding: 1.5rem;
     position: fixed;
     height: 100vh;
     overflow-y: auto;
@@ -152,8 +150,8 @@ body {
 
 .main-content {
     flex: 1;
-    margin-left: 250px;
-    padding: 1rem;
+    margin-left: 280px;
+    padding: 2rem;
 }
 
 .navbar {
@@ -236,26 +234,7 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    
-    .main-content {
-        margin-left: 0;
-    }
-    
-    .form-row {
-        flex-direction: column;
-    }
-}
+
 
 /* Utilities */
 .text-center {
@@ -289,12 +268,11 @@ body {
 
 .modal-content {
     background-color: var(--card-bg);
-    margin: 10% auto;
-    padding: 1.5rem;
+    margin: 8% auto;
+    padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
+    width: 700px;
 }
 
 .modal-header {
