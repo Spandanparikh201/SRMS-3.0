@@ -21,7 +21,7 @@ switch ($action) {
             exit();
         }
         
-        $insertQuery = "INSERT INTO Class (class_name, division, school_id) VALUES (?, ?, ?)";
+        $insertQuery = "INSERT INTO class (class_name, division, school_id) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($insertQuery);
         $stmt->bind_param("ssi", $class_name, $division, $school_id);
         
@@ -42,7 +42,7 @@ switch ($action) {
             exit();
         }
         
-        $updateQuery = "UPDATE Class SET class_name = ?, division = ? WHERE class_id = ? AND school_id = ?";
+        $updateQuery = "UPDATE class SET class_name = ?, division = ? WHERE class_id = ? AND school_id = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param("ssii", $class_name, $division, $class_id, $school_id);
         

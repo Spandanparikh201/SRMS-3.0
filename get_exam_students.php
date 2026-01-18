@@ -21,10 +21,10 @@ if (empty($exam_id) || empty($subject_id)) {
 $studentsQuery = "
     SELECT s.student_id, s.roll_number, u.fullname, c.class_name, c.division, c.class_id,
            er.marks_obtained, er.total_marks
-    FROM Student s
-    JOIN User u ON s.user_id = u.user_id
-    JOIN Class c ON s.class_id = c.class_id
-    LEFT JOIN ExamResult er ON s.student_id = er.student_id 
+    FROM student s
+    JOIN user u ON s.user_id = u.user_id
+    JOIN class c ON s.class_id = c.class_id
+    LEFT JOIN examresult er ON s.student_id = er.student_id 
                             AND er.subject_id = ? 
                             AND er.exam_id = ?
     WHERE s.school_id = ?

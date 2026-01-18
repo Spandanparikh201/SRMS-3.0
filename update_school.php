@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $status = $_POST['status'] ?? 'active';
         
         // Update school
-        $stmt = $conn->prepare("UPDATE School SET school_name = ?, school_address = ?, principal_name = ?, principal_username = ?, status = ? WHERE school_id = ?");
+        $stmt = $conn->prepare("UPDATE school SET school_name = ?, school_address = ?, principal_name = ?, principal_username = ?, status = ? WHERE school_id = ?");
         $stmt->bind_param("sssssi", $school_name, $school_address, $principal_name, $principal_username, $status, $school_id);
         
         if ($stmt->execute()) {

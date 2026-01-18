@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
 $user_id = $_SESSION['user_id'];
 
 // Get student information
-$studentQuery = "SELECT s.*, c.class_name, c.division FROM Student s JOIN Class c ON s.class_id = c.class_id WHERE s.user_id = ?";
+$studentQuery = "SELECT s.*, c.class_name, c.division FROM student s JOIN class c ON s.class_id = c.class_id WHERE s.user_id = ?";
 $stmt = $conn->prepare($studentQuery);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -21,9 +21,9 @@ $student_id = $studentInfo['student_id'];
 // Get results
 $resultsQuery = "SELECT er.*, s.subject_name, e.exam_name,
                  ROUND((er.marks_obtained/er.total_marks)*100, 2) as percentage
-                 FROM ExamResult er 
-                 JOIN Subject s ON er.subject_id = s.subject_id 
-                 JOIN Exam e ON er.exam_id = e.exam_id
+                 FROM examresult er 
+                 JOIN subject s ON er.subject_id = s.subject_id 
+                 JOIN exam e ON er.exam_id = e.exam_id
                  WHERE er.student_id = ? 
                  ORDER BY e.exam_name, s.subject_name";
 $stmt = $conn->prepare($resultsQuery);

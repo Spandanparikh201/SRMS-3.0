@@ -20,9 +20,9 @@ if (empty($class_id) || empty($subject_id) || empty($exam_term)) {
 // Get performance data
 $performanceQuery = "SELECT s.roll_number, u.fullname, r.marks_obtained, r.total_subject_marks,
                      ROUND((r.marks_obtained / r.total_subject_marks * 100), 2) as percentage
-                     FROM Result r
-                     JOIN Student s ON r.student_id = s.student_id
-                     JOIN User u ON s.user_id = u.user_id
+                     FROM result r
+                     JOIN student s ON r.student_id = s.student_id
+                     JOIN user u ON s.user_id = u.user_id
                      WHERE r.class_id = ? AND r.subject_id = ? AND r.exam_term = ?
                      ORDER BY r.marks_obtained DESC";
 

@@ -19,7 +19,7 @@ if (!isset($_GET['user_id'])) {
 $user_id = $_GET['user_id'];
 
 // Get principal information
-$principalQuery = "SELECT * FROM User WHERE user_id = ? AND role = 'principal'";
+$principalQuery = "SELECT * FROM user WHERE user_id = ? AND role = 'principal'";
 $stmt = $conn->prepare($principalQuery);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();

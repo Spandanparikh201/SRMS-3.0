@@ -16,7 +16,7 @@ if (empty($exam_id)) {
 }
 
 // Get exam details
-$examQuery = "SELECT * FROM Exam WHERE exam_id = ? AND school_id = ?";
+$examQuery = "SELECT * FROM exam WHERE exam_id = ? AND school_id = ?";
 $stmt = $conn->prepare($examQuery);
 $stmt->bind_param("ii", $exam_id, $school_id);
 $stmt->execute();
@@ -31,9 +31,9 @@ if (!$exam) {
 // Get all students in the school with their classes
 $studentsQuery = "
     SELECT s.student_id, s.roll_number, u.fullname, c.class_name, c.division, c.class_id
-    FROM Student s
-    JOIN User u ON s.user_id = u.user_id
-    JOIN Class c ON s.class_id = c.class_id
+    FROM student s
+    JOIN user u ON s.user_id = u.user_id
+    JOIN class c ON s.class_id = c.class_id
     WHERE s.school_id = ?
     ORDER BY c.class_name, c.division, s.roll_number
 ";
@@ -43,7 +43,7 @@ $stmt->execute();
 $studentsResult = $stmt->get_result();
 
 // Get subjects for the school
-$subjectsQuery = "SELECT * FROM Subject WHERE school_id = ? ORDER BY subject_name";
+$subjectsQuery = "SELECT * FROM subject WHERE school_id = ? ORDER BY subject_name";
 $stmt = $conn->prepare($subjectsQuery);
 $stmt->bind_param("i", $school_id);
 $stmt->execute();

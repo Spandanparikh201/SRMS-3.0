@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['class_id']) && isset(
     $division = $_POST['division'];
     
     // Check if class belongs to this school
-    $checkQuery = "SELECT * FROM Class WHERE class_id = ? AND school_id = ?";
+    $checkQuery = "SELECT * FROM class WHERE class_id = ? AND school_id = ?";
     $stmt = $conn->prepare($checkQuery);
     $stmt->bind_param("ii", $class_id, $school_id);
     $stmt->execute();
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['class_id']) && isset(
     }
     
     // Check if the new class name and division combination already exists
-    $checkDuplicateQuery = "SELECT * FROM Class WHERE class_name = ? AND division = ? AND school_id = ? AND class_id != ?";
+    $checkDuplicateQuery = "SELECT * FROM class WHERE class_name = ? AND division = ? AND school_id = ? AND class_id != ?";
     $stmt = $conn->prepare($checkDuplicateQuery);
     $stmt->bind_param("ssii", $class_name, $division, $school_id, $class_id);
     $stmt->execute();
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['class_id']) && isset(
     }
     
     // Update class
-    $updateQuery = "UPDATE Class SET class_name = ?, division = ? WHERE class_id = ? AND school_id = ?";
+    $updateQuery = "UPDATE class SET class_name = ?, division = ? WHERE class_id = ? AND school_id = ?";
     $stmt = $conn->prepare($updateQuery);
     $stmt->bind_param("ssii", $class_name, $division, $class_id, $school_id);
     

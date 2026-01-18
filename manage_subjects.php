@@ -105,7 +105,7 @@ $username = $_SESSION['fullname'];
                     <tbody>
                         <?php
                         $subjectsQuery = "SELECT subject_id, subject_name 
-                                         FROM Subject 
+                                         FROM subject 
                                          WHERE school_id = ? 
                                          ORDER BY subject_name";
                         $stmt = $conn->prepare($subjectsQuery);
@@ -138,7 +138,7 @@ $username = $_SESSION['fullname'];
                     <label>Subject Name</label>
                     <input type="text" id="editSubjectName" name="subject_name" class="form-control" required>
                 </div>
-                <button type="submit" class="btn">Update Subject</button>
+                <button type="submit" class="btn">Update subject</button>
             </form>
         </div>
     </div>

@@ -13,7 +13,7 @@ $school_id = $_SESSION['school_id'];
 // Get teacher information
 $teacher_id = null;
 if ($_SESSION['role'] === 'teacher') {
-    $teacherQuery = "SELECT * FROM Teacher WHERE user_id = ?";
+    $teacherQuery = "SELECT * FROM teacher WHERE user_id = ?";
     $stmt = $conn->prepare($teacherQuery);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -26,9 +26,9 @@ if ($_SESSION['role'] === 'teacher') {
 if ($_SESSION['role'] === 'teacher') {
     $assignmentsQuery = "
         SELECT tcs.teacher_class_subject_id, c.class_id, c.class_name, c.division, s.subject_id, s.subject_name
-        FROM Teacher_Class_Subject tcs
-        JOIN Class c ON tcs.class_id = c.class_id
-        JOIN Subject s ON tcs.subject_id = s.subject_id
+        FROM teacher_class_subject tcs
+        JOIN class c ON tcs.class_id = c.class_id
+        JOIN subject s ON tcs.subject_id = s.subject_id
         WHERE tcs.teacher_id = ?
         ORDER BY c.class_name, c.division, s.subject_name
     ";
@@ -40,8 +40,8 @@ if ($_SESSION['role'] === 'teacher') {
     // For principals, show all classes and subjects in their school
     $assignmentsQuery = "
         SELECT c.class_id, c.class_name, c.division, s.subject_id, s.subject_name
-        FROM Class c
-        CROSS JOIN Subject s
+        FROM class c
+        CROSS JOIN subject s
         WHERE c.school_id = ? AND s.school_id = ?
         ORDER BY c.class_name, c.division, s.subject_name
     ";

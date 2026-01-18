@@ -26,7 +26,7 @@ switch ($action) {
         }
         
         // Check for duplicate exam name
-        $checkQuery = "SELECT exam_id FROM Exam WHERE exam_name = ? AND school_id = ?";
+        $checkQuery = "SELECT exam_id FROM exam WHERE exam_name = ? AND school_id = ?";
         $stmt = $conn->prepare($checkQuery);
         $stmt->bind_param("si", $exam_name, $school_id);
         $stmt->execute();
@@ -35,7 +35,7 @@ switch ($action) {
             exit();
         }
         
-        $insertQuery = "INSERT INTO Exam (exam_name, exam_type, start_date, end_date, total_marks, school_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO exam (exam_name, exam_type, start_date, end_date, total_marks, school_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($insertQuery);
         $stmt->bind_param("ssssdis", $exam_name, $exam_type, $start_date, $end_date, $total_marks, $school_id, $status);
         
@@ -61,7 +61,7 @@ switch ($action) {
         }
         
         // Check for duplicate exam name (excluding current exam)
-        $checkQuery = "SELECT exam_id FROM Exam WHERE exam_name = ? AND school_id = ? AND exam_id != ?";
+        $checkQuery = "SELECT exam_id FROM exam WHERE exam_name = ? AND school_id = ? AND exam_id != ?";
         $stmt = $conn->prepare($checkQuery);
         $stmt->bind_param("sii", $exam_name, $school_id, $exam_id);
         $stmt->execute();
@@ -70,7 +70,7 @@ switch ($action) {
             exit();
         }
         
-        $updateQuery = "UPDATE Exam SET exam_name = ?, exam_type = ?, start_date = ?, end_date = ?, total_marks = ?, status = ? WHERE exam_id = ? AND school_id = ?";
+        $updateQuery = "UPDATE exam SET exam_name = ?, exam_type = ?, start_date = ?, end_date = ?, total_marks = ?, status = ? WHERE exam_id = ? AND school_id = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param("ssssdsii", $exam_name, $exam_type, $start_date, $end_date, $total_marks, $status, $exam_id, $school_id);
         
@@ -89,7 +89,7 @@ switch ($action) {
             exit();
         }
         
-        $deleteQuery = "DELETE FROM Exam WHERE exam_id = ? AND school_id = ?";
+        $deleteQuery = "DELETE FROM exam WHERE exam_id = ? AND school_id = ?";
         $stmt = $conn->prepare($deleteQuery);
         $stmt->bind_param("ii", $exam_id, $school_id);
         
@@ -108,7 +108,7 @@ switch ($action) {
             exit();
         }
         
-        $selectQuery = "SELECT * FROM Exam WHERE exam_id = ? AND school_id = ?";
+        $selectQuery = "SELECT * FROM exam WHERE exam_id = ? AND school_id = ?";
         $stmt = $conn->prepare($selectQuery);
         $stmt->bind_param("ii", $exam_id, $school_id);
         $stmt->execute();

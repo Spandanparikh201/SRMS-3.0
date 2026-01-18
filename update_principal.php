@@ -24,10 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         try {
             // Update user information
             if ($password && !empty($password)) {
-                $stmt = $conn->prepare("UPDATE User SET fullname = ?, username = ?, password = ?, school_id = ? WHERE user_id = ? AND role = 'principal'");
+                $stmt = $conn->prepare("UPDATE user SET fullname = ?, username = ?, password = ?, school_id = ? WHERE user_id = ? AND role = 'principal'");
                 $stmt->bind_param("sssii", $fullname, $username, $password, $school_id, $user_id);
             } else {
-                $stmt = $conn->prepare("UPDATE User SET fullname = ?, username = ?, school_id = ? WHERE user_id = ? AND role = 'principal'");
+                $stmt = $conn->prepare("UPDATE user SET fullname = ?, username = ?, school_id = ? WHERE user_id = ? AND role = 'principal'");
                 $stmt->bind_param("ssii", $fullname, $username, $school_id, $user_id);
             }
             

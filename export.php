@@ -18,12 +18,12 @@ switch ($type) {
         $query = "SELECT s.roll_number, u.fullname, c.class_name, c.division, sub.subject_name, 
                          e.exam_name, er.marks_obtained, er.total_marks,
                          ROUND((er.marks_obtained / er.total_marks * 100), 2) as percentage
-                  FROM ExamResult er
-                  JOIN Student s ON er.student_id = s.student_id
-                  JOIN User u ON s.user_id = u.user_id
-                  JOIN Class c ON s.class_id = c.class_id
-                  JOIN Subject sub ON er.subject_id = sub.subject_id
-                  JOIN Exam e ON er.exam_id = e.exam_id
+                  FROM examresult er
+                  JOIN student s ON er.student_id = s.student_id
+                  JOIN user u ON s.user_id = u.user_id
+                  JOIN class c ON s.class_id = c.class_id
+                  JOIN subject sub ON er.subject_id = sub.subject_id
+                  JOIN exam e ON er.exam_id = e.exam_id
                   WHERE 1=1";
         
         $params = [];
@@ -75,10 +75,10 @@ switch ($type) {
         
     case 'students':
         $query = "SELECT s.roll_number, u.fullname, c.class_name, c.division, sch.school_name
-                  FROM Student s
-                  JOIN User u ON s.user_id = u.user_id
-                  JOIN Class c ON s.class_id = c.class_id
-                  JOIN School sch ON s.school_id = sch.school_id
+                  FROM student s
+                  JOIN user u ON s.user_id = u.user_id
+                  JOIN class c ON s.class_id = c.class_id
+                  JOIN school sch ON s.school_id = sch.school_id
                   WHERE s.school_id = ?
                   ORDER BY c.class_name, c.division, s.roll_number";
         

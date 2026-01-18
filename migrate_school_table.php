@@ -11,21 +11,21 @@ echo "<p>This script will update your School table to include the new columns.</
 
 try {
     // Check if columns already exist
-    $checkColumns = $conn->query("SHOW COLUMNS FROM School LIKE 'principal_name'");
+    $checkColumns = $conn->query("SHOW COLUMNS FROM school LIKE 'principal_name'");
     
     if ($checkColumns->num_rows == 0) {
         echo "<p>Adding new columns to School table...</p>\n";
         
         // Add principal_name column
-        $conn->query("ALTER TABLE School ADD COLUMN principal_name VARCHAR(255) DEFAULT 'Not specified' AFTER school_address");
+        $conn->query("ALTER TABLE school ADD COLUMN principal_name VARCHAR(255) DEFAULT 'Not specified' AFTER school_address");
         echo "<p>✓ Added principal_name column</p>\n";
         
         // Add principal_username column
-        $conn->query("ALTER TABLE School ADD COLUMN principal_username VARCHAR(100) DEFAULT NULL AFTER principal_name");
+        $conn->query("ALTER TABLE school ADD COLUMN principal_username VARCHAR(100) DEFAULT NULL AFTER principal_name");
         echo "<p>✓ Added principal_username column</p>\n";
         
         // Add status column
-        $conn->query("ALTER TABLE School ADD COLUMN status ENUM('active', 'inactive') DEFAULT 'active' AFTER principal_username");
+        $conn->query("ALTER TABLE school ADD COLUMN status ENUM('active', 'inactive') DEFAULT 'active' AFTER principal_username");
         echo "<p>✓ Added status column</p>\n";
         
         echo "<p><strong>Migration completed successfully!</strong></p>\n";

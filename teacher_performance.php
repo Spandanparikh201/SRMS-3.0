@@ -11,7 +11,7 @@ $user_id = $_SESSION['user_id'];
 $school_id = $_SESSION['school_id'];
 
 // Get teacher information
-$teacherQuery = "SELECT * FROM Teacher WHERE user_id = ?";
+$teacherQuery = "SELECT * FROM teacher WHERE user_id = ?";
 $stmt = $conn->prepare($teacherQuery);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -57,8 +57,8 @@ $username = $_SESSION['fullname'];
                             <option value="">Select Class</option>
                             <?php
                             $assignmentsQuery = "SELECT DISTINCT c.class_id, c.class_name, c.division
-                                               FROM Teacher_Class_Subject tcs
-                                               JOIN Class c ON tcs.class_id = c.class_id
+                                               FROM teacher_class_subject tcs
+                                               JOIN class c ON tcs.class_id = c.class_id
                                                WHERE tcs.teacher_id = ?
                                                ORDER BY c.class_name, c.division";
                             $stmt = $conn->prepare($assignmentsQuery);

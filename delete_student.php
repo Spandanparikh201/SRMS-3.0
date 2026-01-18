@@ -18,8 +18,8 @@ if (empty($student_id)) {
 
 // Verify student belongs to the same school
 $verifyQuery = "SELECT s.student_id, u.user_id, u.fullname 
-                FROM Student s 
-                JOIN User u ON s.user_id = u.user_id 
+                FROM student s 
+                JOIN user u ON s.user_id = u.user_id 
                 WHERE s.student_id = ? AND s.school_id = ?";
 $stmt = $conn->prepare($verifyQuery);
 $stmt->bind_param("ii", $student_id, $school_id);
@@ -34,7 +34,7 @@ if ($result->num_rows == 0) {
 $student = $result->fetch_assoc();
 
 // Check if student has any results
-$resultsQuery = "SELECT COUNT(*) as count FROM Result WHERE student_id = ?";
+$resultsQuery = "SELECT COUNT(*) as count FROM result WHERE student_id = ?";
 $stmt = $conn->prepare($resultsQuery);
 $stmt->bind_param("i", $student_id);
 $stmt->execute();
@@ -49,7 +49,7 @@ $conn->begin_transaction();
 
 try {
     // Delete student record first
-    $deleteStudentQuery = "DELETE FROM Student WHERE student_id = ?";
+    $deleteStudentQuery = "DELETE FROM student WHERE student_id = ?";
     $stmt = $conn->prepare($deleteStudentQuery);
     $stmt->bind_param("i", $student_id);
     
@@ -58,7 +58,7 @@ try {
     }
     
     // Delete user record
-    $deleteUserQuery = "DELETE FROM User WHERE user_id = ?";
+    $deleteUserQuery = "DELETE FROM user WHERE user_id = ?";
     $stmt = $conn->prepare($deleteUserQuery);
     $stmt->bind_param("i", $student['user_id']);
     

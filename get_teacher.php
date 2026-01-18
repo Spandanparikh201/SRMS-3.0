@@ -25,8 +25,8 @@ $schoolCondition = ($_SESSION['role'] === 'admin') ? "" : "AND t.school_id = " .
 // Get teacher information
 $teacherQuery = "
     SELECT u.user_id, u.username, u.fullname, t.teacher_id, t.school_id
-    FROM User u
-    JOIN Teacher t ON u.user_id = t.user_id
+    FROM user u
+    JOIN teacher t ON u.user_id = t.user_id
     WHERE u.user_id = ? $schoolCondition
 ";
 $stmt = $conn->prepare($teacherQuery);

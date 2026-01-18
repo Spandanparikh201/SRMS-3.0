@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'teacher') {
 $user_id = $_SESSION['user_id'];
 
 // Get teacher information
-$teacherQuery = "SELECT * FROM Teacher WHERE user_id = ?";
+$teacherQuery = "SELECT * FROM teacher WHERE user_id = ?";
 $stmt = $conn->prepare($teacherQuery);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -30,8 +30,8 @@ if ($type === 'subjects' && isset($_GET['class_id'])) {
     // Get subjects assigned to this teacher for the selected class
     $subjectsQuery = "
         SELECT s.subject_id, s.subject_name
-        FROM Teacher_Class_Subject tcs
-        JOIN Subject s ON tcs.subject_id = s.subject_id
+        FROM teacher_class_subject tcs
+        JOIN subject s ON tcs.subject_id = s.subject_id
         WHERE tcs.teacher_id = ? AND tcs.class_id = ?
         ORDER BY s.subject_name
     ";
@@ -51,8 +51,8 @@ if ($type === 'subjects' && isset($_GET['class_id'])) {
     // Get classes assigned to this teacher
     $classesQuery = "
         SELECT DISTINCT c.class_id, c.class_name, c.division
-        FROM Teacher_Class_Subject tcs
-        JOIN Class c ON tcs.class_id = c.class_id
+        FROM teacher_class_subject tcs
+        JOIN class c ON tcs.class_id = c.class_id
         WHERE tcs.teacher_id = ?
         ORDER BY c.class_name, c.division
     ";

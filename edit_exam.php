@@ -14,7 +14,7 @@ if (!$exam_id) {
 }
 
 // Get exam data
-$query = "SELECT * FROM Exam WHERE exam_id = ? AND school_id = ?";
+$query = "SELECT * FROM exam WHERE exam_id = ? AND school_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("ii", $exam_id, $_SESSION['school_id']);
 $stmt->execute();
@@ -45,7 +45,7 @@ if (!$exam) {
                 <input type="date" name="exam_date" class="form-control" value="<?= htmlspecialchars($exam['exam_date']) ?>" required>
             </div>
             <input type="hidden" name="exam_id" value="<?= $exam['exam_id'] ?>">
-            <button type="submit" class="btn">Update Exam</button>
+            <button type="submit" class="btn">Update exam</button>
         </form>
     </div>
     <script>

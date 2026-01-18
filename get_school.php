@@ -19,7 +19,7 @@ if (!isset($_GET['school_id'])) {
 $school_id = $_GET['school_id'];
 
 // Get school information
-$schoolQuery = "SELECT * FROM School WHERE school_id = ?";
+$schoolQuery = "SELECT * FROM school WHERE school_id = ?";
 $stmt = $conn->prepare($schoolQuery);
 $stmt->bind_param("i", $school_id);
 $stmt->execute();

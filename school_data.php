@@ -14,8 +14,8 @@ switch($action) {
         }
         
         $stmt = $conn->prepare("SELECT s.*, u.fullname as principal_name, u.username as principal_username 
-                                FROM School s 
-                                LEFT JOIN User u ON s.school_id = u.school_id AND u.role = 'principal' 
+                                FROM school s 
+                                LEFT JOIN user u ON s.school_id = u.school_id AND u.role = 'principal' 
                                 WHERE s.school_id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -97,7 +97,7 @@ switch($action) {
         
         try {
             // Update school
-            $stmt = $conn->prepare("UPDATE School SET school_name = ?, school_address = ? WHERE school_id = ?");
+            $stmt = $conn->prepare("UPDATE school SET school_name = ?, school_address = ? WHERE school_id = ?");
             $stmt->bind_param("ssi", $school_name, $school_address, $id);
             
             if (!$stmt->execute()) {
@@ -107,7 +107,7 @@ switch($action) {
             // Update principal if provided
             if (!empty($principal_name)) {
                 // Check if principal exists for this school
-                $checkPrincipal = $conn->prepare("SELECT user_id FROM User WHERE school_id = ? AND role = 'principal'");
+                $checkPrincipal = $conn->prepare("SELECT user_id FROM user WHERE school_id = ? AND role = 'principal'");
                 $checkPrincipal->bind_param("i", $id);
                 $checkPrincipal->execute();
                 $principalResult = $checkPrincipal->get_result();
@@ -115,7 +115,7 @@ switch($action) {
                 if ($principalResult->num_rows > 0) {
                     // Update existing principal
                     $principal = $principalResult->fetch_assoc();
-                    $updatePrincipal = $conn->prepare("UPDATE User SET fullname = ? WHERE user_id = ?");
+                    $updatePrincipal = $conn->prepare("UPDATE user SET fullname = ? WHERE user_id = ?");
                     $updatePrincipal->bind_param("si", $principal_name, $principal['user_id']);
                     $updatePrincipal->execute();
                 } else {
@@ -123,7 +123,7 @@ switch($action) {
                     $username = strtolower(str_replace(' ', '', $principal_name)) . '.principal';
                     $password = 'principalpass123';
                     
-                    $createPrincipal = $conn->prepare("INSERT INTO User (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'principal', ?)");
+                    $createPrincipal = $conn->prepare("INSERT INTO user (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'principal', ?)");
                     $createPrincipal->bind_param("sssi", $username, $password, $principal_name, $id);
                     $createPrincipal->execute();
                 }
@@ -161,7 +161,7 @@ switch($action) {
             $principal_password = 'principal' . rand(1000, 9999);
             
             // Check if username already exists
-            $checkUser = $conn->prepare("SELECT user_id FROM User WHERE username = ?");
+            $checkUser = $conn->prepare("SELECT user_id FROM user WHERE username = ?");
             $checkUser->bind_param("s", $principal_username);
             $checkUser->execute();
             if ($checkUser->get_result()->num_rows > 0) {
@@ -174,7 +174,7 @@ switch($action) {
         
         try {
             // Insert school first
-            $stmt = $conn->prepare("INSERT INTO School (school_name, school_address, principal_name, principal_username, status) VALUES (?, ?, ?, ?, 'active')");
+            $stmt = $conn->prepare("INSERT INTO school (school_name, school_address, principal_name, principal_username, status) VALUES (?, ?, ?, ?, 'active')");
             $stmt->bind_param("ssss", $school_name, $school_address, $principal_name, $principal_username);
             
             if (!$stmt->execute()) {
@@ -185,7 +185,7 @@ switch($action) {
             
             // Create principal user account if principal name provided
             if (!empty($principal_name)) {
-                $userStmt = $conn->prepare("INSERT INTO User (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'principal', ?)");
+                $userStmt = $conn->prepare("INSERT INTO user (username, password, fullname, role, school_id) VALUES (?, ?, ?, 'principal', ?)");
                 $userStmt->bind_param("sssi", $principal_username, $principal_password, $principal_name, $school_id);
                 
                 if (!$userStmt->execute()) {

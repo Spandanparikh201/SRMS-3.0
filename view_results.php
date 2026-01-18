@@ -38,11 +38,11 @@ if (!$exam_term) {
                 $resultsQuery = "SELECT u.fullname, c.class_name, c.division, sub.subject_name, 
                                 r.marks_obtained, r.total_subject_marks,
                                 ROUND((r.marks_obtained/r.total_subject_marks)*100, 2) as percentage
-                                FROM Result r 
-                                JOIN Student s ON r.student_id = s.student_id 
-                                JOIN User u ON s.user_id = u.user_id
-                                JOIN Class c ON r.class_id = c.class_id
-                                JOIN Subject sub ON r.subject_id = sub.subject_id
+                                FROM result r 
+                                JOIN student s ON r.student_id = s.student_id 
+                                JOIN user u ON s.user_id = u.user_id
+                                JOIN class c ON r.class_id = c.class_id
+                                JOIN subject sub ON r.subject_id = sub.subject_id
                                 WHERE s.school_id = ? AND r.exam_term = ?
                                 ORDER BY u.fullname, sub.subject_name";
                 $stmt = $conn->prepare($resultsQuery);

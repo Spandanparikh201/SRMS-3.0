@@ -71,7 +71,7 @@ $username = $_SESSION['fullname'];
                         <select name="class_id" class="form-control" required>
                             <option value="">Select Class</option>
                             <?php
-                            $classQuery = "SELECT class_id, class_name, division FROM Class WHERE school_id = ? ORDER BY class_name, division";
+                            $classQuery = "SELECT class_id, class_name, division FROM class WHERE school_id = ? ORDER BY class_name, division";
                             $stmt = $conn->prepare($classQuery);
                             $stmt->bind_param("i", $_SESSION['school_id']);
                             $stmt->execute();
@@ -122,9 +122,9 @@ $username = $_SESSION['fullname'];
                     <tbody>
                         <?php
                         $studentsQuery = "SELECT s.roll_number, u.fullname, u.username, c.class_name, c.division 
-                                         FROM Student s 
-                                         JOIN User u ON s.user_id = u.user_id 
-                                         JOIN Class c ON s.class_id = c.class_id 
+                                         FROM student s 
+                                         JOIN user u ON s.user_id = u.user_id 
+                                         JOIN class c ON s.class_id = c.class_id 
                                          WHERE s.school_id = ? 
                                          ORDER BY c.class_name, c.division, s.roll_number";
                         $stmt = $conn->prepare($studentsQuery);
@@ -169,7 +169,7 @@ $username = $_SESSION['fullname'];
                     <label>Class</label>
                     <select id="editClassId" name="class_id" class="form-control" required>
                         <?php
-                        $classQuery = "SELECT class_id, class_name, division FROM Class WHERE school_id = ? ORDER BY class_name, division";
+                        $classQuery = "SELECT class_id, class_name, division FROM class WHERE school_id = ? ORDER BY class_name, division";
                         $stmt = $conn->prepare($classQuery);
                         $stmt->bind_param("i", $_SESSION['school_id']);
                         $stmt->execute();
@@ -180,7 +180,7 @@ $username = $_SESSION['fullname'];
                         ?>
                     </select>
                 </div>
-                <button type="submit" class="btn">Update Student</button>
+                <button type="submit" class="btn">Update student</button>
             </form>
         </div>
     </div>
@@ -207,7 +207,7 @@ $username = $_SESSION['fullname'];
                     <label>Class</label>
                     <select id="editClassId" name="class_id" class="form-control" required>
                         <?php
-                        $classQuery = "SELECT class_id, class_name, division FROM Class WHERE school_id = ? ORDER BY class_name, division";
+                        $classQuery = "SELECT class_id, class_name, division FROM class WHERE school_id = ? ORDER BY class_name, division";
                         $stmt = $conn->prepare($classQuery);
                         $stmt->bind_param("i", $_SESSION['school_id']);
                         $stmt->execute();
@@ -218,7 +218,7 @@ $username = $_SESSION['fullname'];
                         ?>
                     </select>
                 </div>
-                <button type="submit" class="btn">Update Student</button>
+                <button type="submit" class="btn">Update student</button>
             </form>
         </div>
     </div>
